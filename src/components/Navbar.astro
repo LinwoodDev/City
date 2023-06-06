@@ -1,0 +1,77 @@
+---
+export interface Props {
+	title: string;
+    items: NavbarAction[];
+	actions: NavbarAction[];
+}
+export interface NavbarAction {
+    title: string;
+    href: string;
+}
+
+const { title, items = [], actions = [] } = Astro.props;
+---
+
+<div class="navbar">
+    <a href="/" class="navbar__title">
+        { title }
+    </a>
+    <div class="navbar__items">
+        { items.map(({ title, href }) => (
+            <a class="navbar__item" href={ href }>{ title }</a>
+        )) }
+    </div>
+    <div class="navbar__actions">
+        { actions.map(({ title, href }) => (
+            <a class="navbar__item" href={ href }>{ title }</a>
+        )) }
+    </div>
+</div>
+
+<style lang="scss">
+    @use '@styles/colors';
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        background-color: colors.$background;
+        box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+        overflow-x: auto;
+        gap: 1rem;
+    }
+    .navbar__title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        flex: 1;
+        color: colors.$text;
+        text-decoration: none;
+    }
+    .navbar__items {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+    }
+    .navbar__actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex: 1;
+    }
+    .navbar__item {
+        margin-left: 1rem;
+        text-decoration: none;
+        color: colors.$text;
+        margin: 0.1rem;
+        padding: 0.5rem;
+        transition: all 0.2s ease-in-out;
+        border-radius: 0.5rem;
+        font-weight: bold;
+        &:hover {
+            color: colors.$background;
+            background-color: colors.$primary;
+        }
+    }
+</style>
